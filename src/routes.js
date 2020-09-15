@@ -1,9 +1,12 @@
 import { Router } from 'express';
 
+import ProductController from './app/controllers/ProductController';
+
 const routes = Router();
 
-routes.get('/', (req, res) => {
-  return res.json({ ok: true });
-});
+routes.get('/products', ProductController.index);
+routes.post('/products', ProductController.store);
+routes.put('/product/:id', ProductController.update);
+routes.delete('/product/:id', ProductController.destroy);
 
 export default routes;
