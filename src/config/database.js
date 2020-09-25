@@ -6,7 +6,5 @@ module.exports = {
   database: 'ope',
   define: {
     timestamps: true,
-    underscored: true,
-    underscoredAll: true,
   },
 };
