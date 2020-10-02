@@ -2,13 +2,12 @@ import Costumer from '../models/Costumer';
 
 class CostumerController {
   async index(req, res) {
-    const costumers = await Costumer.findAll()
+    const costumers = await Costumer.findAll();
 
-    return res.json({ data: costumers })
+    return res.json({ data: costumers });
   }
 
   async store(req, res) {
-
     const {
       cpf,
       nome,
@@ -17,7 +16,7 @@ class CostumerController {
       cidade,
       uf,
       telefone,
-      email
+      email,
     } = req.body;
 
     const costumer = await Costumer.create({
@@ -28,14 +27,14 @@ class CostumerController {
       cidade,
       uf,
       telefone,
-      email
+      email,
     });
 
     return res.status(201).json({ data: costumer });
   }
 
   async update(req, res) {
-    const { id } = req.params
+    const { id } = req.params;
     const {
       cpf,
       nome,
@@ -44,11 +43,10 @@ class CostumerController {
       cidade,
       uf,
       telefone,
-      email
-    }
-     = req.body
+      email,
+    } = req.body;
 
-    const costumer = await Costumer.findByPk(id)
+    const costumer = await Costumer.findByPk(id);
 
     await costumer.update({
       cpf,
@@ -58,21 +56,19 @@ class CostumerController {
       cidade,
       uf,
       telefone,
-      email
-    })
+      email,
+    });
 
-    return res.json(costumer)
-
+    return res.json(costumer);
   }
 
   async destroy(req, res) {
-    const { id } = req.params
+    const { id } = req.params;
 
-    await Costumer.destroy({ where: { id } })
+    await Costumer.destroy({ where: { id } });
 
-    return res.send()
+    return res.send();
   }
-
 }
 
 export default new CostumerController();

@@ -2,13 +2,12 @@ import Product from '../models/Product';
 
 class ProductController {
   async index(req, res) {
-    const products = await Product.findAll()
+    const products = await Product.findAll();
 
-    return res.json(products)
+    return res.json(products);
   }
 
   async store(req, res) {
-
     const { nome, marca, preco, cod_barras } = req.body;
 
     const product = await Product.create({
@@ -22,25 +21,23 @@ class ProductController {
   }
 
   async update(req, res) {
-    const { id } = req.params
-    const { nome, marca, preco, cod_barras } = req.body
+    const { id } = req.params;
+    const { nome, marca, preco, cod_barras } = req.body;
 
-    const product = await Product.findByPk(id)
+    const product = await Product.findByPk(id);
 
-    await product.update({ nome, marca, preco, cod_barras })
+    await product.update({ nome, marca, preco, cod_barras });
 
-    return res.json(product)
-
+    return res.json(product);
   }
 
   async destroy(req, res) {
-    const { id } = req.params
+    const { id } = req.params;
 
-    await Product.destroy({ where: { id } })
+    await Product.destroy({ where: { id } });
 
-    return res.send()
+    return res.send();
   }
-
 }
 
 export default new ProductController();

@@ -1,21 +1,17 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    const costumersTable = await queryInterface.createTable('costumers', {
+    const suppliersTable = await queryInterface.createTable('suppliers', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      cpf: {
+      razao_social: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      nome: {
+      nome_fantasia: {
         type: Sequelize.STRING,
-        allowNull: false,
-      },
-      data_nascimento: {
-        type: Sequelize.DATE,
         allowNull: false,
       },
       endereco: {
@@ -37,6 +33,9 @@ module.exports = {
       email: {
         type: Sequelize.STRING,
       },
+      site: {
+        type: Sequelize.STRING,
+      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -47,11 +46,11 @@ module.exports = {
       },
     });
 
-    return costumersTable;
+    return suppliersTable;
   },
 
   down: async (queryInterface) => {
-    const costumersTable = await queryInterface.dropTable('costumers');
-    return costumersTable;
+    const suppliersTable = await queryInterface.dropTable('suppliers');
+    return suppliersTable;
   },
 };
