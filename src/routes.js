@@ -1,8 +1,11 @@
-import { Router } from 'express';
+const { Router } = require('express');
 
-import ProductController from './app/controllers/ProductController';
-import CostumerController from './app/controllers/CostumerController';
-import SupplierController from './app/controllers/SupplierController';
+const ProductController = require('./app/controllers/ProductController');
+const CostumerController = require('./app/controllers/CostumerController');
+const SupplierController = require('./app/controllers/SupplierController');
+const UserController = require('./app/controllers/UserController');
+const LoginController = require('./app/controllers/LoginController');
+const ServiceController = require('./app/controllers/ServiceController');
 
 const routes = Router();
 
@@ -24,4 +27,19 @@ routes.post('/suppliers', SupplierController.store);
 routes.put('/supplier/:id', SupplierController.update);
 routes.delete('/supplier/:id', SupplierController.destroy);
 
-export default routes;
+// Usuarios
+routes.get('/users', UserController.index);
+routes.post('/users', UserController.store);
+routes.put('/user/:id', UserController.update);
+routes.delete('/user/:id', UserController.destroy);
+
+// Servicos
+routes.get('/services', ServiceController.index);
+routes.post('/services', ServiceController.store);
+routes.put('/service/:id', ServiceController.update);
+routes.delete('/service/:id', ServiceController.destroy);
+
+// Login
+routes.post('/login', LoginController.validate);
+
+module.exports = routes;

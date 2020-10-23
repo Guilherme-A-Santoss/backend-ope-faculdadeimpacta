@@ -1,4 +1,4 @@
-import Costumer from '../models/Costumer';
+const Costumer = require('../models/Costumer');
 
 class CostumerController {
   async index(req, res) {
@@ -71,4 +71,4 @@ class CostumerController {
   }
 }
 
-export default new CostumerController();
+module.exports = new CostumerController();

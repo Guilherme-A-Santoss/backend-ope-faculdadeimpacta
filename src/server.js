@@ -1,5 +1,5 @@
-import app from './app';
+const app = require('./app');
 
-const PORT = 5555;
+const PORT = 3333;
 
 app.listen(PORT);

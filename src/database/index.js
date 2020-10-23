@@ -1,11 +1,13 @@
-import Sequelize from 'sequelize';
-import databaseConfig from '../config/database';
+const Sequelize = require('sequelize');
+const databaseConfig = require('../config/database');
 
-import Product from '../app/models/Product';
-import Costumer from '../app/models/Costumer';
-import Supplier from '../app/models/Supplier';
+const Product = require('../app/models/Product');
+const Costumer = require('../app/models/Costumer');
+const Supplier = require('../app/models/Supplier');
+const User = require('../app/models/User');
+const Servico = require('../app/models/Service');
 
-const models = [Product, Costumer, Supplier];
+const models = [Product, Costumer, Supplier, User, Servico];
 
 class Database {
   constructor() {
@@ -19,4 +21,4 @@ class Database {
   }
 }
 
-export default new Database();
+module.exports = new Database();

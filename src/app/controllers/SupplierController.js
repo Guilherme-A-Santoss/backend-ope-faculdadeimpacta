@@ -1,4 +1,4 @@
-import Supplier from '../models/Supplier';
+const Supplier = require('../models/Supplier');
 
 class SupplierController {
   async index(req, res) {
@@ -71,4 +71,4 @@ class SupplierController {
   }
 }
 
-export default new SupplierController();
+module.exports = new SupplierController();
