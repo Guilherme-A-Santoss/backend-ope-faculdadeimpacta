@@ -1,6 +1,6 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    const costumersTable = await queryInterface.createTable('costumers', {
+    const costumersTable = await queryInterface.createTable('Costumer', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -9,6 +9,7 @@ module.exports = {
       cpf: {
         type: Sequelize.STRING,
         allowNull: false,
+        unique: true,
       },
       nome: {
         type: Sequelize.STRING,
@@ -17,6 +18,13 @@ module.exports = {
       data_nascimento: {
         type: Sequelize.DATE,
         allowNull: false,
+      },
+      sexo: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        validate: {
+          isIn: [['M', 'F']],
+        },
       },
       endereco: {
         type: Sequelize.STRING,
@@ -36,6 +44,7 @@ module.exports = {
       },
       email: {
         type: Sequelize.STRING,
+        unique: true,
       },
       created_at: {
         allowNull: false,
@@ -51,7 +60,7 @@ module.exports = {
   },
 
   down: async (queryInterface) => {
-    const costumersTable = await queryInterface.dropTable('costumers');
+    const costumersTable = await queryInterface.dropTable('Costumer');
     return costumersTable;
   },
 };

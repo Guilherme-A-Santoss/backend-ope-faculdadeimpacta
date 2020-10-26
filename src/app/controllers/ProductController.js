@@ -1,42 +1,50 @@
-const Product = require('../models/Product');
-
+const ProductService = require('../services/product.service')
 class ProductController {
-  async index(req, res) {
-    const products = await Product.findAll();
+  async listAll(req, res) {
+    try {
+      const products = await ProductService.list()
 
-    return res.json(products);
+      return res.status(201).json({ data: products, status: true })
+    } catch (error) {
+      return res.status(400).send({ error: error.stack || error, status: false});
+    }
   }
 
-  async store(req, res) {
-    const { nome, marca, preco, cod_barras } = req.body;
+  async create(req, res) {
+    try {
+      const payload = { ...req.body }
 
-    const product = await Product.create({
-      nome,
-      marca,
-      preco,
-      cod_barras,
-    });
+      const createdProduct = await ProductService.create(payload);
 
-    return res.status(201).json(product);
+      return res.status(201).json({ data: createdProduct, status: true })
+    } catch (error) {
+      return res.status(400).send({ error: error.stack || error, status: false});
+    }
   }
 
   async update(req, res) {
-    const { id } = req.params;
-    const { nome, marca, preco, cod_barras } = req.body;
+    try {
+      const { id } = req.params;
+      const payload = { ...req.body }
 
-    const product = await Product.findByPk(id);
+      const updatedProduct = await ProductService.update(id, payload)
 
-    await product.update({ nome, marca, preco, cod_barras });
-
-    return res.json(product);
+      return res.status(201).json({ data: updatedProduct, status: true })
+    } catch (error) {
+      return res.status(400).send({ error: error.stack || error, status: false});
+    }
   }
 
-  async destroy(req, res) {
-    const { id } = req.params;
+  async delete(req, res) {
+    try {
+      const { id } = req.params;
 
-    await Product.destroy({ where: { id } });
+      await ProductService.delete(id);
 
-    return res.send();
+      return res.status(200).json({ message: 'Produto deletado', status: true });
+    } catch (error) {
+      return res.status(400).send({ error: error.stack || error, status: false});
+    }
   }
 }
 

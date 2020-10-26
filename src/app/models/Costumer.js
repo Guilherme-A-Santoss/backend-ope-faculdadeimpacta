@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize')
+const Sequelize = require('sequelize');
 const { Model } = require('sequelize');
 
 class Costumer extends Model {
@@ -13,6 +13,7 @@ class Costumer extends Model {
         uf: Sequelize.STRING,
         telefone: Sequelize.STRING,
         email: Sequelize.STRING,
+        sexo: Sequelize.STRING,
       },
       {
         sequelize,

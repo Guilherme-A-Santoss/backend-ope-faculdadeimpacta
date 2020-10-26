@@ -5,8 +5,9 @@ module.exports = {
   password: 'jsanto9568996789',
   database: 'ope',
   define: {
+    freezeTableName: true,
     underscored: true,
-    underscoredAll: true,
+    // underscoredAll: true,:
     timestamps: true,
   },
 };

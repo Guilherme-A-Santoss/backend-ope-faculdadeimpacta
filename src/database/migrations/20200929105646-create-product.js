@@ -1,6 +1,6 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    const productTable = await queryInterface.createTable('products', {
+    const productTable = await queryInterface.createTable('Product', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -8,6 +8,7 @@ module.exports = {
       },
       nome: {
         type: Sequelize.STRING,
+        unique: true,
         allowNull: false,
       },
       marca: {
@@ -19,6 +20,7 @@ module.exports = {
         allowNull: false,
       },
       cod_barras: {
+        unique: true,
         type: Sequelize.STRING,
       },
       created_at: {
@@ -35,7 +37,7 @@ module.exports = {
   },
 
   down: async (queryInterface) => {
-    const productTable = await queryInterface.dropTable('products');
+    const productTable = await queryInterface.dropTable('Product');
     return productTable;
   },
 };

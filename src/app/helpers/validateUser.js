@@ -4,13 +4,12 @@ class ValidateUser {
   async userExists({ email }) {
     try {
       const user = await User.findOne({ where: { email } });
-      return user
-
+      return user;
     } catch (error) {
-      console.log(error)
-      return error
+      console.log(error);
+      return error;
     }
   }
 }
 
-module.exports = new ValidateUser()
+module.exports = new ValidateUser();

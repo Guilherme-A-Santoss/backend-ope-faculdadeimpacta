@@ -1,73 +1,52 @@
-const Supplier = require('../models/Supplier');
-
+const SupplierService = require('../services/supplier.service')
 class SupplierController {
-  async index(req, res) {
-    const suppliers = await Supplier.findAll();
+  async listAll(req, res) {
+    try {
+      const suppliers = await SupplierService.list()
 
-    return res.json({ data: suppliers });
+      return res.status(200).json({ data: suppliers, status: true });
+
+    } catch (error) {
+      return res.status(400).send({ error: error.stack || error, status: false });
+    }
   }
 
-  async store(req, res) {
-    const {
-      razaoSocial,
-      nomeFantasia,
-      endereco,
-      cidade,
-      uf,
-      telefone,
-      email,
-      site,
-    } = req.body;
+  async create(req, res) {
+    try {
+      const payload = {...req.body}
 
-    const supplier = await Supplier.create({
-      razaoSocial,
-      nomeFantasia,
-      endereco,
-      cidade,
-      uf,
-      telefone,
-      email,
-      site,
-    });
+      const createdSupplier = await SupplierService.create(payload)
 
-    return res.status(201).json({ data: supplier });
+      return res.status(201).json({ data: createdSupplier, status: true });
+
+    } catch (error) {
+      return res.status(400).send({ error: error.stack || error, status: false });
+    }
   }
 
   async update(req, res) {
-    const { id } = req.params;
-    const {
-      razaoSocial,
-      nomeFantasia,
-      endereco,
-      cidade,
-      uf,
-      telefone,
-      email,
-      site,
-    } = req.body;
+    try {
+      const { id } = req.params;
+      const payload = {...req.body}
 
-    const supplier = await Supplier.findByPk(id);
+      const updatedSupplier = await SupplierService.update(id, payload);
 
-    await supplier.update({
-      razaoSocial,
-      nomeFantasia,
-      endereco,
-      cidade,
-      uf,
-      telefone,
-      email,
-      site,
-    });
-
-    return res.json(supplier);
+      return res.status(201).json({ data: updatedSupplier, status: true });
+    } catch (error) {
+      return res.status(400).send({ error: error.stack || error, status: false});
+    }
   }
 
-  async destroy(req, res) {
-    const { id } = req.params;
+  async delete(req, res) {
+    try {
+      const { id } = req.params;
 
-    await Supplier.destroy({ where: { id } });
+      await SupplierService.delete(id)
 
-    return res.send();
+      return res.status(200).json({ message: 'Fornecedor deletado', status: true });
+    } catch (error) {
+      return res.status(400).send({ error: error.stack || error, status: false});
+    }
   }
 }
 

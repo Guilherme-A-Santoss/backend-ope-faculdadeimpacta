@@ -1,57 +1,49 @@
-const Service = require('../models/Service');
-
+const ServicesService = require('../services/services.service')
 class ServiceController {
-  async index(req, res) {
-    const products = await Service.findAll();
-    return res.json(products);
+  async listAll(req, res) {
+    try {
+      const services = await ServicesService.list();
+      return res.status(200).json({ data: services, status: true });
+    } catch (error) {
+      return res.status(400).send({ error: error.stack || error, status: false });
+    }
   }
 
-  async store(req, res) {
-    const { nome, nro_servico, descricao, valor, prazo_dias, tipo } = req.body;
+  async create(req, res) {
+    try {
+      const payload = {...req.body}
 
-    const service = await Service.create({
-      nome,
-      nro_servico,
-      descricao,
-      valor,
-      prazo_dias,
-      tipo
-    });
+      const createdService = await ServicesService.create(payload);
 
-    return res.status(201).json(service);
+      return res.status(200).json({ data: createdService, status: true });
+    } catch (error) {
+      return res.status(400).send({ error: error.stack || error, status: false });
+    }
   }
 
   async update(req, res) {
-    const { id } = req.params;
-    const {
-      nome,
-      nro_servico,
-      descricao,
-      valor,
-      prazo_dias,
-      tipo
-    } = req.body;
+    try {
+      const { id } = req.params;
+      const payload = {...req.body}
 
-    const service = await Service.findByPk(id);
+      const updatedService = await ServicesService.update(id, payload)
 
-    await service.update({
-      nome,
-      nro_servico,
-      descricao,
-      valor,
-      prazo_dias,
-      tipo
-    });
-
-    return res.json(service);
+      return res.status(200).json({ data: updatedService, status: true });
+    } catch (error) {
+      return res.status(400).send({ error: error.stack || error, status: false });
+    }
   }
 
-  async destroy(req, res) {
-    const { id } = req.params;
+  async delete(req, res) {
+    try {
+      const { id } = req.params;
 
-    await Service.destroy({ where: { id } });
+      await ServicesService.delete(id);
 
-    return res.send();
+      return res.status(200).json({ message: 'Serviço deletado com sucesso', status: true });
+    } catch (error) {
+      return res.status(400).send({ error: error.stack || error, status: false });
+    }
   }
 }
 

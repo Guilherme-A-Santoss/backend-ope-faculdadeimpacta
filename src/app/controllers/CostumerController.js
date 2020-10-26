@@ -1,73 +1,61 @@
-const Costumer = require('../models/Costumer');
+const CostumerService = require('../services/costumer.service');
 
 class CostumerController {
-  async index(req, res) {
-    const costumers = await Costumer.findAll();
+  async listAll(req, res) {
+    const costumers = await CostumerService.list();
 
     return res.json({ data: costumers });
   }
 
-  async store(req, res) {
-    const {
-      cpf,
-      nome,
-      dataNascimento,
-      endereco,
-      cidade,
-      uf,
-      telefone,
-      email,
-    } = req.body;
+  async create(req, res) {
+    try {
+      const payload = {
+        ...req.body,
+      };
 
-    const costumer = await Costumer.create({
-      cpf,
-      nome,
-      dataNascimento,
-      endereco,
-      cidade,
-      uf,
-      telefone,
-      email,
-    });
+      const sexOptions = ['M', 'F', 'NB'];
 
-    return res.status(201).json({ data: costumer });
+      if (!payload.sexo in sexOptions) {
+        return res.json({
+          message: 'Opção inválida',
+        });
+      }
+
+      const createdCostumer = await CostumerService.create(payload);
+
+      return res.status(201).json({ data: createdCostumer, status: true });
+    } catch (error) {
+      return res.status(400).send({ error: error.stack || error });
+    }
   }
 
   async update(req, res) {
-    const { id } = req.params;
-    const {
-      cpf,
-      nome,
-      dataNascimento,
-      endereco,
-      cidade,
-      uf,
-      telefone,
-      email,
-    } = req.body;
+    try {
+      const { id } = req.params;
+      const payload = {
+        ...req.body,
+      };
 
-    const costumer = await Costumer.findByPk(id);
+      const updatedCostumer = await CostumerService.updateCostumer(id, payload);
 
-    await costumer.update({
-      cpf,
-      nome,
-      dataNascimento,
-      endereco,
-      cidade,
-      uf,
-      telefone,
-      email,
-    });
-
-    return res.json(costumer);
+      return res
+        .status(201)
+        .json({ data: updatedCostumer, status: true });
+    } catch (error) {
+      return res.status(400).send({ error: error.stack || error, status: false });
+    }
   }
 
-  async destroy(req, res) {
-    const { id } = req.params;
+  async delete(req, res) {
+    try {
+      const { id } = req.params;
 
-    await Costumer.destroy({ where: { id } });
+      await CostumerService.delete(id);
 
-    return res.send();
+      return res.status(200).json({ message: 'Cliente deletado', status: true});
+    } catch (error) {
+      return res.status(404).send({ error: error.stack || error, status: false });
+    }
   }
 }
 
