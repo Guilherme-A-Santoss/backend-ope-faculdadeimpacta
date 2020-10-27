@@ -4,8 +4,9 @@ const ProductController = require('./app/controllers/ProductController');
 const CostumerController = require('./app/controllers/CostumerController');
 const SupplierController = require('./app/controllers/SupplierController');
 const UserController = require('./app/controllers/UserController');
-const LoginController = require('./app/controllers/LoginController');
 const ServiceController = require('./app/controllers/ServiceController');
+const SessionController = require('./app/controllers/SessionController');
+const authMiddleware = require('./app/middlewares/authMiddleware')
 
 const routes = Router();
 
@@ -30,7 +31,7 @@ routes.delete('/supplier/:id', SupplierController.delete);
 // Usuarios
 routes.get('/users', UserController.listAll);
 routes.post('/users', UserController.create);
-routes.put('/user/:id', UserController.update);
+routes.put('/user/:id', authMiddleware, UserController.update);
 routes.delete('/user/:id', UserController.delete);
 
 // Servicos
@@ -40,6 +41,6 @@ routes.put('/service/:id', ServiceController.update);
 routes.delete('/service/:id', ServiceController.delete);
 
 // Login
-routes.post('/login', LoginController.validate);
+routes.post('/login', SessionController.init);
 
 module.exports = routes;

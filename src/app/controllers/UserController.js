@@ -28,7 +28,9 @@ class UserController {
 
       const createdUser = await UserService.createUser(payload);
 
-      return res.status(201).json({ data: createdUser, status: true });
+      const {id, email, nome_usuario} = createdUser
+
+      return res.status(201).json({ data: {id, email, nome_usuario}, status: true });
     } catch (error) {
       return res.status(400).send({ error: error.stack || error, status: false });
     }
@@ -66,6 +68,26 @@ class UserController {
       return res.status(400).send({ error: error.stack || error, status: false });
     }
   }
+
+  async login(req, res) {
+    try {
+      const { tipo_usuario } = req.headers
+      const { email } = req.body
+
+      if (tipo_usuario !== 'admin') {
+        return res.status(401).json({ error: 'Usuário não autorizado!' });
+      }
+
+      const user = await UserService.validate(email)
+
+      if(!user){
+        return res.status(404).json({error: 'Usuário não registrado!'})
+      }
+    } catch (error) {
+      return res.status(400).send({ error: error.stack || error, status: false });
+    }
+  }
+
 }
 
 module.exports = new UserController();

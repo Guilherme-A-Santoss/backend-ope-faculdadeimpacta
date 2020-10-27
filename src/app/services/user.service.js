@@ -16,7 +16,7 @@ class Service {
   async listUsers() {
     return User.findAll({
       attributes: {
-        exclude: ['senha'],
+        exclude: ['senha', 'updatedAt', 'createdAt', 'senha_hash'],
       },
     });
   }
@@ -39,6 +39,10 @@ class Service {
 
   async deleteUser(id) {
     return User.destroy({ where: { id } });
+  }
+
+  async validate( email ) {
+    return User.findOne({ where: { email }})
   }
 }
 
