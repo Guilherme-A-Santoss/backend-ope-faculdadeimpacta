@@ -1,4 +1,5 @@
 const UserService = require('../services/user.service');
+const Yup = require('yup')
 
 class UserController {
   async listAll(req, res) {
@@ -18,6 +19,19 @@ class UserController {
   }
 
   async create(req, res) {
+    const schema = Yup.object().shape({
+      nome_usuario: Yup.string().required(),
+      email: Yup.string().email().required(),
+      senha: Yup.string().required().min(6)
+    })
+
+    if(!(await schema.isValid(req.body))) {
+
+      return res.status(400).json({
+        error: 'Dados inválidos!', status: false
+      })
+    }
+
     try {
       const { tipo_usuario } = req.headers;
       const payload = {...req.body, tipo_usuario}
@@ -37,19 +51,33 @@ class UserController {
   }
 
   async update(req, res) {
+    const schema = Yup.object().shape({
+      nome_usuario: Yup.string(),
+      email: Yup.string().email(),
+      senha_antiga: Yup.string().min(6),
+      senha: Yup.string().min(6).when('senha_antiga', (senha_antiga, field) =>
+        senha_antiga ? field.required() : field
+      ),
+      confirmar_senha: Yup.string().when('senha', (senha, field) =>
+        senha ? field.required().oneOf([Yup.ref('senha')]) : field
+      )
+    })
+
+    if(!(await schema.isValid(req.body))) {
+
+      return res.status(400).json({
+        error: 'Campos faltando!', status: false
+      })
+    }
+
     try {
-      const { id } = req.params;
       const { tipo_usuario } = req.headers;
       const payload = {
         ...req.body,
         tipo_usuario
       };
 
-      if (tipo_usuario !== 'admin') {
-        return res.status(401).json({ error: 'Usuário não autorizado!' });
-      }
-
-      const updatedUser = await UserService.updateUser(id, payload);
+      const updatedUser = await UserService.updateUser(req.userId, payload);
 
       return res.status(201).json({ data: updatedUser, status: true });
     } catch (error) {
@@ -69,24 +97,24 @@ class UserController {
     }
   }
 
-  async login(req, res) {
-    try {
-      const { tipo_usuario } = req.headers
-      const { email } = req.body
+  // async login(req, res) {
+  //   try {
+  //     const { tipo_usuario } = req.headers
+  //     const { email } = req.body
 
-      if (tipo_usuario !== 'admin') {
-        return res.status(401).json({ error: 'Usuário não autorizado!' });
-      }
+  //     if (tipo_usuario !== 'admin') {
+  //       return res.status(401).json({ error: 'Usuário não autorizado!' });
+  //     }
 
-      const user = await UserService.validate(email)
+  //     const user = await UserService.validate(email)
 
-      if(!user){
-        return res.status(404).json({error: 'Usuário não registrado!'})
-      }
-    } catch (error) {
-      return res.status(400).send({ error: error.stack || error, status: false });
-    }
-  }
+  //     if(!user){
+  //       return res.status(404).json({error: 'Usuário não registrado!'})
+  //     }
+  //   } catch (error) {
+  //     return res.status(400).send({ error: error.stack || error, status: false });
+  //   }
+  // }
 
 }
 

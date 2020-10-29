@@ -1,4 +1,4 @@
-const Costumer = require('../models/Costumer');
+const Customer = require('../models/Customer');
 
 class Service {
   async create(payload) {
@@ -14,7 +14,7 @@ class Service {
       sexo
     } = payload
 
-    return Costumer.create({
+    return Customer.create({
       cpf,
       nome,
       dataNascimento,
@@ -28,11 +28,11 @@ class Service {
   }
 
   async list() {
-    return Costumer.findAll();
+    return Customer.findAll();
   }
 
   async update(id, payload) {
-    const costumer = await Costumer.findByPk(id);
+    const customer = await Customer.findByPk(id);
 
     const {
       cpf,
@@ -46,7 +46,7 @@ class Service {
       sexo
     } = payload
 
-    await costumer.update({
+    await customer.update({
       cpf,
       nome,
       dataNascimento,
@@ -58,11 +58,11 @@ class Service {
       sexo
     });
 
-    return costumer
+    return customer
   }
 
   async delete(id) {
-    return Costumer.destroy({ where: { id } });
+    return Customer.destroy({ where: { id } });
   }
 }
 

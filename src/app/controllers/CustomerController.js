@@ -1,10 +1,10 @@
-const CostumerService = require('../services/costumer.service');
+const CustomerService = require('../services/customer.service');
 
-class CostumerController {
+class CustomerController {
   async listAll(req, res) {
-    const costumers = await CostumerService.list();
+    const customers = await CustomerService.list();
 
-    return res.json({ data: costumers });
+    return res.json({ data: customers });
   }
 
   async create(req, res) {
@@ -21,9 +21,9 @@ class CostumerController {
         });
       }
 
-      const createdCostumer = await CostumerService.create(payload);
+      const createdCustomer = await CustomerService.create(payload);
 
-      return res.status(201).json({ data: createdCostumer, status: true });
+      return res.status(201).json({ data: createdCustomer, status: true });
     } catch (error) {
       return res.status(400).send({ error: error.stack || error });
     }
@@ -36,11 +36,11 @@ class CostumerController {
         ...req.body,
       };
 
-      const updatedCostumer = await CostumerService.updateCostumer(id, payload);
+      const updatedCustomer = await CustomerService.updateCustomer(id, payload);
 
       return res
         .status(201)
-        .json({ data: updatedCostumer, status: true });
+        .json({ data: updatedCustomer, status: true });
     } catch (error) {
       return res.status(400).send({ error: error.stack || error, status: false });
     }
@@ -50,7 +50,7 @@ class CostumerController {
     try {
       const { id } = req.params;
 
-      await CostumerService.delete(id);
+      await CustomerService.delete(id);
 
       return res.status(200).json({ message: 'Cliente deletado', status: true});
     } catch (error) {
@@ -59,4 +59,4 @@ class CostumerController {
   }
 }
 
-module.exports = new CostumerController();
+module.exports = new CustomerController();

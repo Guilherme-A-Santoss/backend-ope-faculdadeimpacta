@@ -7,7 +7,7 @@ class Service {
     const getUser = await User.findOne({ where: { email } });
 
     if (getUser) {
-      return 'E-mail já registrado.';
+      throw 'E-mail já registrado.';
     }
 
     return User.create({nome_usuario, email, senha, tipo_usuario});
@@ -22,19 +22,30 @@ class Service {
   }
 
   async updateUser(id, payload) {
-    const {nome_usuario, email, senha, tipo_usuario } = payload
+    const {
+      email,
+      senha_antiga,
+      tipo_usuario
+    } = payload
 
     const user = await User.findByPk(id);
 
-    return user.update({
-      nome_usuario,
-      email,
-      senha,
-      tipo_usuario
-    },
-    {attributes: {
-      exclude: ['senha'],
-    }});
+    if (email !== user.email){
+      const userExists = await User.findOne({ where: { email } })
+
+      if (userExists) {
+        throw 'Usuário já existe!'
+      }
+    }
+
+    if(senha_antiga && !(await user.checkPassword(senha_antiga))){
+      throw "Senha incorreta!"
+    }
+
+    const { nome_usuario } = await user.update(payload)
+
+    return {id, nome_usuario, email, tipo_usuario}
+
   }
 
   async deleteUser(id) {
