@@ -8,7 +8,7 @@ class Product extends Model {
         nome: Sequelize.STRING,
         marca: Sequelize.STRING,
         preco: Sequelize.DECIMAL,
-        cod_barras: Sequelize.STRING,
+        codBarras: Sequelize.STRING,
       },
       {
         sequelize,

@@ -5,11 +5,11 @@ class Service extends Model {
   static init(sequelize) {
     super.init(
       {
-        nro_servico: Sequelize.STRING,
+        nroServico: Sequelize.STRING,
         nome: Sequelize.STRING,
         descricao: Sequelize.STRING,
         valor: Sequelize.DECIMAL,
-        prazo_dias: Sequelize.INTEGER,
+        prazoDias: Sequelize.INTEGER,
         tipo: Sequelize.INTEGER,
       },
       {

@@ -2,7 +2,7 @@ const User = require('../models/User');
 
 class Service {
   async createUser(payload) {
-    const {nome_usuario, email, senha, tipo_usuario} = payload
+    const {nomeUsuario, email, senha, tipoUsuario} = payload
 
     const getUser = await User.findOne({ where: { email } });
 
@@ -10,7 +10,7 @@ class Service {
       throw 'E-mail já registrado.';
     }
 
-    return User.create({nome_usuario, email, senha, tipo_usuario});
+    return User.create({nomeUsuario, email, senha, tipoUsuario});
   }
 
   async listUsers() {
@@ -24,8 +24,8 @@ class Service {
   async updateUser(id, payload) {
     const {
       email,
-      senha_antiga,
-      tipo_usuario
+      senhaAntiga,
+      tipoUsuario
     } = payload
 
     const user = await User.findByPk(id);
@@ -38,13 +38,13 @@ class Service {
       }
     }
 
-    if(senha_antiga && !(await user.checkPassword(senha_antiga))){
+    if(senhaAntiga && !(await user.checkPassword(senhaAntiga))){
       throw "Senha incorreta!"
     }
 
-    const { nome_usuario } = await user.update(payload)
+    const { nomeUsuario } = await user.update(payload)
 
-    return {id, nome_usuario, email, tipo_usuario}
+    return {id, nomeUsuario, email, tipoUsuario}
 
   }
 

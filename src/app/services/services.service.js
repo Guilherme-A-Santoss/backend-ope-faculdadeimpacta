@@ -4,19 +4,19 @@ class Service {
   async create(payload) {
     const {
       nome,
-      nro_servico,
+      nroServico,
       descricao,
       valor,
-      prazo_dias,
+      prazoDias,
       tipo,
     } = payload
 
     return ServiceModel.create({
       nome,
-      nro_servico,
+      nroServico,
       descricao,
       valor,
-      prazo_dias,
+      prazoDias,
       tipo,
     });
   }
@@ -28,10 +28,10 @@ class Service {
   async update(id, payload) {
     const {
       nome,
-      nro_servico,
+      nroServico,
       descricao,
       valor,
-      prazo_dias,
+      prazoDias,
       tipo,
     } = payload
 
@@ -39,10 +39,10 @@ class Service {
 
     await service.update({
       nome,
-      nro_servico,
+      nroServico,
       descricao,
       valor,
-      prazo_dias,
+      prazoDias,
       tipo,
     });
   }

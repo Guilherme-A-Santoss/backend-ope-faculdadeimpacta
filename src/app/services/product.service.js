@@ -6,14 +6,14 @@ class Service {
       nome,
       marca,
       preco,
-      cod_barras
+      codBarras
     } = payload
 
     return Product.create({
       nome,
       marca,
       preco,
-      cod_barras
+      codBarras
     });
   }
 
@@ -26,7 +26,7 @@ class Service {
       nome,
       marca,
       preco,
-      cod_barras
+      codBarras
     } = payload
 
     const product = await Product.findByPk(id);
@@ -35,7 +35,7 @@ class Service {
       nome,
       marca,
       preco,
-      cod_barras
+      codBarras
     });
   }
 
