@@ -18,6 +18,13 @@ class UserController {
     }
   }
 
+  async getUser(req, res) {
+    const { id } = req.params
+    const user = await UserService.getById(id);
+
+    return res.json({ data: user });
+  }
+
   async create(req, res) {
     const schema = Yup.object().shape({
       nomeUsuario: Yup.string().required(),

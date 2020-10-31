@@ -25,6 +25,10 @@ class Service {
     return ServiceModel.findAll();
   }
 
+  async getById(id) {
+    return ServiceModel.findByPk(id);
+  }
+
   async update(id, payload) {
     const {
       nome,

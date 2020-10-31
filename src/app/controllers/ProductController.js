@@ -10,6 +10,13 @@ class ProductController {
     }
   }
 
+  async getProduct(req, res) {
+    const { id } = req.params
+    const product = await ProductService.getById(id);
+
+    return res.json({ data: product });
+  }
+
   async create(req, res) {
     try {
       const payload = { ...req.body }

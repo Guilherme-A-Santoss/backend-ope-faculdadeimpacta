@@ -9,6 +9,13 @@ class ServiceController {
     }
   }
 
+  async getService(req, res) {
+    const { id } = req.params
+    const customers = await ServicesService.getById(id);
+
+    return res.json({ data: customers });
+  }
+
   async create(req, res) {
     try {
       const payload = {...req.body}

@@ -23,28 +23,33 @@ routes.use(authMiddleware)
 // Produtos
 routes.get('/products', ProductController.listAll);
 routes.post('/products', ProductController.create);
+routes.get('/product/:id', ProductController.getProduct);
 routes.put('/product/:id', ProductController.update);
 routes.delete('/product/:id', ProductController.delete);
 
 // Clientes
 routes.get('/customers', CustomerController.listAll);
+routes.get('/customer/:id', CustomerController.getCostumer);
 routes.post('/customers', CustomerController.create);
 routes.put('/customer/:id', CustomerController.update);
 routes.delete('/customer/:id', CustomerController.delete);
 
 // Fornecedores
 routes.get('/suppliers', SupplierController.listAll);
+routes.get('/supplier/:id', SupplierController.getSupplier);
 routes.post('/suppliers', SupplierController.create);
 routes.put('/supplier/:id', SupplierController.update);
 routes.delete('/supplier/:id', SupplierController.delete);
 
 // Usuarios
 routes.get('/users', UserController.listAll);
+routes.get('/user/:id', UserController.getUser);
 routes.put('/user', UserController.update);
 routes.delete('/user', UserController.delete);
 
 // Servicos
 routes.get('/services', ServiceController.listAll);
+routes.get('/service/:id', ServiceController.getService);
 routes.post('/services', ServiceController.create);
 routes.put('/service/:id', ServiceController.update);
 routes.delete('/service/:id', ServiceController.delete);

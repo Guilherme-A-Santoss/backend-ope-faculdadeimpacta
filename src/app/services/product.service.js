@@ -21,6 +21,10 @@ class Service {
     return Product.findAll();
   }
 
+  async getById(id) {
+    return Product.findByPk(id);
+  }
+
   async update(id, payload) {
     const {
       nome,

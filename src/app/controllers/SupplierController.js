@@ -11,6 +11,13 @@ class SupplierController {
     }
   }
 
+  async getSupplier(req, res) {
+    const { id } = req.params
+    const supplier = await SupplierService.getById(id);
+
+    return res.json({ data: supplier });
+  }
+
   async create(req, res) {
     try {
       const payload = {...req.body}

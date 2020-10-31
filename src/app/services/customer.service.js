@@ -31,6 +31,10 @@ class Service {
     return Customer.findAll();
   }
 
+  async getById(id) {
+    return Customer.findByPk(id);
+  }
+
   async update(id, payload) {
     const customer = await Customer.findByPk(id);
 

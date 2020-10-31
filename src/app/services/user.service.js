@@ -21,6 +21,14 @@ class Service {
     });
   }
 
+  async getById(id) {
+    const user =  await User.findByPk(id);
+
+    const { email, nomeUsuario } = user
+
+    return { id, email, nomeUsuario }
+  }
+
   async updateUser(id, payload) {
     const {
       email,

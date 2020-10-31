@@ -29,6 +29,10 @@ class Service {
     return Supplier.findAll();
   }
 
+  async getById(id) {
+    return Supplier.findByPk(id);
+  }
+
   async update(id, payload) {
     const {
       razaoSocial,

@@ -7,6 +7,13 @@ class CustomerController {
     return res.json({ data: customers });
   }
 
+  async getCostumer(req, res) {
+    const { id } = req.params
+    const customer = await CustomerService.getById(id);
+
+    return res.json({ data: customer });
+  }
+
   async create(req, res) {
     try {
       const payload = {
