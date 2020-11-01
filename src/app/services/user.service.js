@@ -2,7 +2,7 @@ const User = require('../models/User');
 
 class Service {
   async createUser(payload) {
-    const {nomeUsuario, email, senha, tipoUsuario} = payload
+    const {nomeUsuario, email, senha, tipo_usuario} = payload
 
     const getUser = await User.findOne({ where: { email } });
 
@@ -10,7 +10,7 @@ class Service {
       throw 'E-mail já registrado.';
     }
 
-    return User.create({nomeUsuario, email, senha, tipoUsuario});
+    return User.create({nomeUsuario, email, senha, tipoUsuario: tipo_usuario });
   }
 
   async listUsers() {

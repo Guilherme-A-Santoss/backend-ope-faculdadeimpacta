@@ -4,9 +4,10 @@ const Yup = require('yup')
 class UserController {
   async listAll(req, res) {
     try {
-      const tipoDoUsuario = req.headers.tipoUsuario;
+      const { tipo_usuario } = req.headers;
 
-      if (tipoDoUsuario !== 'admin') {
+      if (tipo_usuario !== 'admin') {
+        console.log(req.headers)
         return res.status(401).json({ error: 'Usuário não autorizado!' });
       }
 
@@ -40,10 +41,10 @@ class UserController {
     }
 
     try {
-      const { tipoUsuario } = req.headers;
-      const payload = {...req.body, tipoUsuario}
+      const { tipo_usuario } = req.headers;
+      const payload = {...req.body, tipo_usuario}
 
-      if (tipoUsuario !== 'admin') {
+      if (tipo_usuario !== 'admin') {
         return res.status(401).json({ error: 'Usuário não autorizado!' });
       }
 
