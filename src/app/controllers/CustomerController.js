@@ -43,7 +43,7 @@ class CustomerController {
         ...req.body,
       };
 
-      const updatedCustomer = await CustomerService.updateCustomer(id, payload);
+      const updatedCustomer = await CustomerService.update(id, payload);
 
       return res
         .status(201)
