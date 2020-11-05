@@ -8,7 +8,7 @@ class Service {
       descricao,
       valor,
       prazoDias,
-      tipo,
+      categoria,
     } = payload
 
     return ServiceModel.create({
@@ -17,7 +17,7 @@ class Service {
       descricao,
       valor,
       prazoDias,
-      tipo,
+      categoria,
     });
   }
 
@@ -36,7 +36,7 @@ class Service {
       descricao,
       valor,
       prazoDias,
-      tipo,
+      categoria,
     } = payload
 
     const service = await ServiceModel.findByPk(id);
@@ -47,7 +47,7 @@ class Service {
       descricao,
       valor,
       prazoDias,
-      tipo,
+      categoria,
     });
   }
 

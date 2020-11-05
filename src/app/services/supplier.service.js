@@ -4,6 +4,7 @@ class Service {
   async create(payload) {
     const {
       razaoSocial,
+      cnpj,
       nomeFantasia,
       endereco,
       cidade,
@@ -15,6 +16,7 @@ class Service {
 
     return Supplier.create({
       razaoSocial,
+      cnpj,
       nomeFantasia,
       endereco,
       cidade,
@@ -36,6 +38,7 @@ class Service {
   async update(id, payload) {
     const {
       razaoSocial,
+      cnpj,
       nomeFantasia,
       endereco,
       cidade,
@@ -49,6 +52,7 @@ class Service {
 
     await supplier.update({
       razaoSocial,
+      cnpj,
       nomeFantasia,
       endereco,
       cidade,

@@ -28,7 +28,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      tipo: {
+      categoria: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },

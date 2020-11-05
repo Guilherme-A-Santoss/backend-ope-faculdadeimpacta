@@ -1,3 +1,5 @@
+const sequelize = require("sequelize");
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     const suppliersTable = await queryInterface.createTable('Supplier', {
@@ -15,6 +17,11 @@ module.exports = {
         unique: true,
         type: Sequelize.STRING,
         allowNull: false,
+      },
+      cnpj: {
+        unique: true,
+        type: Sequelize.STRING,
+        allowNull: false
       },
       endereco: {
         type: Sequelize.STRING,

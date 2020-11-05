@@ -6,6 +6,7 @@ class Supplier extends Model {
     super.init(
       {
         razaoSocial: Sequelize.STRING,
+        cnpj: Sequelize.STRING,
         nomeFantasia: Sequelize.STRING,
         endereco: Sequelize.STRING,
         cidade: Sequelize.STRING,
