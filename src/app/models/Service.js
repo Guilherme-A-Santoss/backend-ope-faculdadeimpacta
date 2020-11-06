@@ -10,7 +10,7 @@ class Service extends Model {
         descricao: Sequelize.STRING,
         valor: Sequelize.DECIMAL,
         prazoDias: Sequelize.INTEGER,
-        categoria: Sequelize.INTEGER,
+        categoria: Sequelize.STRING,
       },
       {
         sequelize,
