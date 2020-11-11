@@ -1,4 +1,8 @@
+const dotenv = require('dotenv')
+
+dotenv.config()
+
 module.exports = {
-  secret: '52e56600aff9d421d0ec69378e4a61f9',
+  secret: process.env.AUTH_SECRET,
   expiresIn: '7d'
 }

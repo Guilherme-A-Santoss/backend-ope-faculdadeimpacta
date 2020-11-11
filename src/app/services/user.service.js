@@ -2,7 +2,7 @@ const User = require('../models/User');
 
 class Service {
   async createUser(payload) {
-    const {nomeUsuario, email, senha, tipo_usuario} = payload
+    const {nomeUsuario, email, senha, tipoUsuario} = payload
 
     const getUser = await User.findOne({ where: { email } });
 
@@ -10,13 +10,13 @@ class Service {
       throw 'E-mail já registrado.';
     }
 
-    return User.create({nomeUsuario, email, senha, tipoUsuario: tipo_usuario });
+    return User.create({nomeUsuario, email, senha, tipoUsuario });
   }
 
   async listUsers() {
     return User.findAll({
       attributes: {
-        exclude: ['senha', 'updatedAt', 'createdAt', 'senha_hash'],
+        exclude: [, 'updatedAt', 'createdAt', 'senhaHash'],
       },
     });
   }
@@ -24,9 +24,9 @@ class Service {
   async getById(id) {
     const user =  await User.findByPk(id);
 
-    const { email, nomeUsuario } = user
+    const { email, nomeUsuario, tipoUsuario } = user
 
-    return { id, email, nomeUsuario }
+    return { id, email, nomeUsuario, tipoUsuario }
   }
 
   async updateUser(id, payload) {

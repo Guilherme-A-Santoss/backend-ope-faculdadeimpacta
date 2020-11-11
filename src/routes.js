@@ -7,12 +7,9 @@ const UserController = require('./app/controllers/UserController');
 const ServiceController = require('./app/controllers/ServiceController');
 const SessionController = require('./app/controllers/SessionController');
 const authMiddleware = require('./app/middlewares/authMiddleware')
+const permissionMiddleware = require('./app/middlewares/permissionMiddleware')
 
 const routes = Router();
-
-
-
-routes.post('/users', UserController.create);
 
 // Login
 routes.post('/login', SessionController.login);
@@ -34,25 +31,31 @@ routes.post('/customers', CustomerController.create);
 routes.put('/customer/:id', CustomerController.update);
 routes.delete('/customer/:id', CustomerController.delete);
 
-// Fornecedores
-routes.get('/suppliers', SupplierController.listAll);
-routes.get('/supplier/:id', SupplierController.getSupplier);
-routes.post('/suppliers', SupplierController.create);
-routes.put('/supplier/:id', SupplierController.update);
-routes.delete('/supplier/:id', SupplierController.delete);
-
-// Usuarios
-routes.get('/users', UserController.listAll);
-routes.get('/user/:id', UserController.getUser);
-routes.put('/user', UserController.update);
-routes.delete('/user', UserController.delete);
-
 // Servicos
 routes.get('/services', ServiceController.listAll);
 routes.get('/service/:id', ServiceController.getService);
 routes.post('/services', ServiceController.create);
 routes.put('/service/:id', ServiceController.update);
 routes.delete('/service/:id', ServiceController.delete);
+
+// Fornecedores
+routes.get('/suppliers', SupplierController.listAll);
+routes.get('/supplier/:id', SupplierController.getSupplier);
+
+routes.use(permissionMiddleware)
+
+// Fornecedores
+routes.post('/suppliers', SupplierController.create);
+routes.put('/supplier/:id', SupplierController.update);
+routes.delete('/supplier/:id', SupplierController.delete);
+
+// Usuarios
+routes.post('/users', UserController.create);
+routes.get('/users', UserController.listAll);
+routes.get('/user/:id', UserController.getUser);
+routes.put('/user', UserController.update);
+routes.delete('/user', UserController.delete);
+
 
 
 module.exports = routes;

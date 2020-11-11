@@ -20,7 +20,7 @@ module.exports = {
         allowNull: false,
       },
       tipo_usuario: {
-        type: Sequelize.STRING,
+        type: Sequelize.ENUM('admin', 'employee'),
         allowNull: false,
       },
       created_at: {
@@ -31,7 +31,8 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       },
-    });
+    })
+
 
     return usersTable;
   },

@@ -4,12 +4,6 @@ const Yup = require('yup')
 class UserController {
   async listAll(req, res) {
     try {
-      const { tipo_usuario } = req.headers;
-
-      if (tipo_usuario !== 'admin') {
-        console.log(req.headers)
-        return res.status(401).json({ error: 'Usuário não autorizado!' });
-      }
 
       const users = await UserService.listUsers();
 
@@ -30,7 +24,8 @@ class UserController {
     const schema = Yup.object().shape({
       nomeUsuario: Yup.string().required(),
       email: Yup.string().email().required(),
-      senha: Yup.string().required().min(6)
+      senha: Yup.string().required().min(6),
+      tipoUsuario: Yup.string().oneOf(['admin', 'employee']).required()
     })
 
     if(!(await schema.isValid(req.body))) {
@@ -41,12 +36,7 @@ class UserController {
     }
 
     try {
-      const { tipo_usuario } = req.headers;
-      const payload = {...req.body, tipo_usuario}
-
-      if (tipo_usuario !== 'admin') {
-        return res.status(401).json({ error: 'Usuário não autorizado!' });
-      }
+      const payload = {...req.body}
 
       const createdUser = await UserService.createUser(payload);
 
@@ -61,6 +51,7 @@ class UserController {
   async update(req, res) {
     const schema = Yup.object().shape({
       nomeUsuario: Yup.string(),
+      tipoUsuario: Yup.string().oneOf(['admin', 'employee']),
       email: Yup.string().email(),
       senhaAntiga: Yup.string().min(6),
       senha: Yup.string().min(6).when('senhaAntiga', (senhaAntiga, field) =>
@@ -79,10 +70,8 @@ class UserController {
     }
 
     try {
-      const { tipoUsuario } = req.headers;
       const payload = {
         ...req.body,
-        tipoUsuario
       };
 
       const updatedUser = await UserService.updateUser(req.userId, payload);
