@@ -49,25 +49,25 @@ class UserController {
   }
 
   async update(req, res) {
-    const schema = Yup.object().shape({
-      nomeUsuario: Yup.string(),
-      tipoUsuario: Yup.string().oneOf(['admin', 'employee']),
-      email: Yup.string().email(),
-      senhaAntiga: Yup.string().min(6),
-      senha: Yup.string().min(6).when('senhaAntiga', (senhaAntiga, field) =>
-        senhaAntiga ? field.required() : field
-      ),
-      confirmarSenha: Yup.string().when('senha', (senha, field) =>
-        senha ? field.required().oneOf([Yup.ref('senha')]) : field
-      )
-    })
+    // const schema = Yup.object().shape({
+    //   nomeUsuario: Yup.string(),
+    //   tipoUsuario: Yup.string().oneOf(['admin', 'employee']),
+    //   email: Yup.string().email(),
+    //   senhaAntiga: Yup.string().min(6),
+    //   senha: Yup.string().min(6).when('senhaAntiga', (senhaAntiga, field) =>
+    //     senhaAntiga ? field.required() : field
+    //   ),
+    //   confirmarSenha: Yup.string().when('senha', (senha, field) =>
+    //     senha ? field.required().oneOf([Yup.ref('senha')]) : field
+    //   )
+    // })
 
-    if(!(await schema.isValid(req.body))) {
+    // if(!(await schema.isValid(req.body))) {
 
-      return res.status(400).json({
-        error: 'Campos faltando!', status: false
-      })
-    }
+    //   return res.status(400).json({
+    //     error: 'Campos faltando!', status: false
+    //   })
+    // }
 
     try {
       const payload = {
