@@ -31,12 +31,15 @@ class Service {
 
   async updateUser(id, payload) {
     const {
-      email,
       senhaAntiga,
       tipoUsuario
     } = payload
 
+    let { email } = payload
+
     const user = await User.findByPk(id);
+
+    email = email ? email : user.email
 
     if (email !== user.email){
       const userExists = await User.findOne({ where: { email } })
@@ -50,7 +53,7 @@ class Service {
       throw "Senha incorreta!"
     }
 
-    const { nomeUsuario } = await user.update(payload)
+    const { nomeUsuario } = await user.update({ ...payload, email })
 
     return {id, nomeUsuario, email, tipoUsuario}
 

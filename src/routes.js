@@ -17,6 +17,8 @@ routes.post('/login', SessionController.login);
 // Todas as rotas abaixo deste middleware precisam estarem autenticadas
 routes.use(authMiddleware)
 
+routes.put('/user', UserController.update);
+
 // Produtos
 routes.get('/products', ProductController.listAll);
 routes.post('/products', ProductController.create);
@@ -53,7 +55,6 @@ routes.delete('/supplier/:id', SupplierController.delete);
 routes.post('/users', UserController.create);
 routes.get('/users', UserController.listAll);
 routes.get('/user/:id', UserController.getUser);
-routes.put('/user', UserController.update);
 routes.delete('/user', UserController.delete);
 
 

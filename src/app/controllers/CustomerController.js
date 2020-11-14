@@ -1,3 +1,4 @@
+const Yup = require('yup')
 const CustomerService = require('../services/customer.service');
 
 class CustomerController {
@@ -15,18 +16,29 @@ class CustomerController {
   }
 
   async create(req, res) {
+    const schema = Yup.object().shape({
+      cpf: Yup.string().length(11).required(),
+      nome: Yup.string().max(50).required(),
+      dataNascimento: Yup.date().required(),
+      endereco: Yup.string().max(50).required(),
+      cidade: Yup.string().max(30).required(),
+      uf: Yup.string().length(2).required(),
+      telefone: Yup.string().min(8).required(),
+      email: Yup.string().email().required(),
+      sexo: Yup.string().oneOf(['M', 'F', 'NB']).required()
+    })
+
+    if(!(await schema.isValid(req.body))) {
+
+      return res.status(400).json({
+        error: 'Dados inválidos, por favor tente novamente!', status: false
+      })
+    }
+
     try {
       const payload = {
         ...req.body,
       };
-
-      const sexOptions = ['M', 'F', 'NB'];
-
-      if (!payload.sexo in sexOptions) {
-        return res.json({
-          message: 'Opção inválida',
-        });
-      }
 
       const createdCustomer = await CustomerService.create(payload);
 
@@ -37,6 +49,25 @@ class CustomerController {
   }
 
   async update(req, res) {
+    const schema = Yup.object().shape({
+      cpf: Yup.string().length(11),
+      nome: Yup.string().max(50),
+      dataNascimento: Yup.date(),
+      endereco: Yup.string().max(50),
+      cidade: Yup.string().max(30),
+      uf: Yup.string().length(2),
+      telefone: Yup.string().min(8),
+      email: Yup.string().email(),
+      sexo: Yup.string().oneOf(['M', 'F', 'NB'])
+    })
+
+    if(!(await schema.isValid(req.body))) {
+
+      return res.status(400).json({
+        error: 'Dados inválidos, por favor tente novamente!', status: false
+      })
+    }
+
     try {
       const { id } = req.params;
       const payload = {

@@ -53,7 +53,7 @@ class UserController {
       nomeUsuario: Yup.string(),
       tipoUsuario: Yup.string().oneOf(['admin', 'employee']),
       email: Yup.string().email(),
-      senhaAntiga: Yup.string().min(6),
+      senhaAntiga: Yup.string(),
       senha: Yup.string().min(6).when('senhaAntiga', (senhaAntiga, field) =>
         senhaAntiga ? field.required() : field
       ),
