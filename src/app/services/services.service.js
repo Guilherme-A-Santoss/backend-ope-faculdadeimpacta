@@ -2,23 +2,7 @@ const ServiceModel = require('../models/Service');
 
 class Service {
   async create(payload) {
-    const {
-      nome,
-      nroServico,
-      descricao,
-      valor,
-      prazoDias,
-      categoria,
-    } = payload
-
-    return ServiceModel.create({
-      nome,
-      nroServico,
-      descricao,
-      valor,
-      prazoDias,
-      categoria,
-    });
+    return ServiceModel.create({ ...payload });
   }
 
   async list() {
@@ -30,25 +14,10 @@ class Service {
   }
 
   async update(id, payload) {
-    const {
-      nome,
-      nroServico,
-      descricao,
-      valor,
-      prazoDias,
-      categoria,
-    } = payload
 
     const service = await ServiceModel.findByPk(id);
 
-    await service.update({
-      nome,
-      nroServico,
-      descricao,
-      valor,
-      prazoDias,
-      categoria,
-    });
+    await service.update({ ...payload });
   }
 
   async delete(id) {

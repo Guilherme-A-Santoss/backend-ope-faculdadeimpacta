@@ -1,4 +1,6 @@
+const Yup = require('yup')
 const ProductService = require('../services/product.service')
+
 class ProductController {
   async listAll(req, res) {
     try {
@@ -18,6 +20,22 @@ class ProductController {
   }
 
   async create(req, res) {
+
+    const schema = Yup.object().shape({
+      nome: Yup.string().max(50).required(),
+      marca: Yup.string().max(20).required(),
+      preco: Yup.number().test(
+        'is-decimal',
+        'invalid decimal',
+        value => (value + "").match(/^\d*\.{1}\d*$/),
+      ).required(),
+      codBarras: Yup.string().max(20).required()
+    })
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Campos inválidos!', status: false})
+    }
+
     try {
       const payload = { ...req.body }
 
@@ -30,6 +48,21 @@ class ProductController {
   }
 
   async update(req, res) {
+    const schema = Yup.object().shape({
+      nome: Yup.string().max(50),
+      marca: Yup.string().max(20),
+      preco: Yup.number().test(
+        'is-decimal',
+        'invalid decimal',
+        value => (value + "").match(/^\d*\.{1}\d*$/),
+      ).required(),
+      codBarras: Yup.string().max(20)
+    })
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Campos inválidos!', status: false})
+    }
+
     try {
       const { id } = req.params;
       const payload = { ...req.body }

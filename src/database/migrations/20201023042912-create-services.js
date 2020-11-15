@@ -21,7 +21,7 @@ module.exports = {
         allowNull: false,
       },
       valor: {
-        type: Sequelize.DECIMAL,
+        type: Sequelize.DECIMAL(10, 2),
         allowNull: false,
       },
       prazo_dias: {

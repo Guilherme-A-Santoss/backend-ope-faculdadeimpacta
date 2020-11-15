@@ -2,18 +2,8 @@ const Product = require('../models/Product');
 
 class Service {
   async create(payload) {
-    const {
-      nome,
-      marca,
-      preco,
-      codBarras
-    } = payload
-
     return Product.create({
-      nome,
-      marca,
-      preco,
-      codBarras
+      ...payload
     });
   }
 

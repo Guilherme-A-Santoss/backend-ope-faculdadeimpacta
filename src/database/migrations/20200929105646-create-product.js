@@ -16,7 +16,7 @@ module.exports = {
         allowNull: false,
       },
       preco: {
-        type: Sequelize.DECIMAL,
+        type: Sequelize.DECIMAL(10, 2),
         allowNull: false,
       },
       cod_barras: {
