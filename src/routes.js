@@ -55,7 +55,7 @@ routes.delete('/supplier/:id', SupplierController.delete);
 routes.post('/users', UserController.create);
 routes.get('/users', UserController.listAll);
 routes.get('/user/:id', UserController.getUser);
-routes.delete('/user', UserController.delete);
+routes.delete('/user/:id', UserController.delete);
 
 
 
