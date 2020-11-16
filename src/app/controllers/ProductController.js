@@ -50,14 +50,10 @@ class ProductController {
 
   async update(req, res) {
     const schema = Yup.object().shape({
-      nome: Yup.string().max(50),
-      marca: Yup.string().max(20),
-      preco: Yup.number().test(
-        'is-decimal',
-        'invalid decimal',
-        value => (value + "").match(/^\d*\.{1}\d*$/),
-      ).required(),
-      codBarras: Yup.string().max(20)
+      nome: Yup.string().max(50).required(),
+      marca: Yup.string().max(20).required(),
+      preco: Yup.number().required().required(),
+      codBarras: Yup.string().max(20).required()
     })
 
     if (!(await schema.isValid(req.body))) {

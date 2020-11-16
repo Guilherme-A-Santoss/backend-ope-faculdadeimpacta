@@ -23,11 +23,7 @@ class ServiceController {
       nroServico: Yup.string().required(),
       nome: Yup.string().required(),
       descricao: Yup.string().required(),
-      valor: Yup.number().test(
-        'is-decimal',
-        'invalid decimal',
-        value => (value + "").match(/^\d*\.{1}\d*$/),
-      ).required(),
+      valor: Yup.number().required(),
       prazoDias: Yup.number().integer().required(),
       categoria: Yup.string().required()
     })
@@ -49,20 +45,15 @@ class ServiceController {
 
   async update(req, res) {
     const schema = Yup.object().shape({
-      nroServico: Yup.string(),
-      nome: Yup.string(),
-      descricao: Yup.string(),
-      valor: Yup.number().test(
-        'is-decimal',
-        'invalid decimal',
-        value => (value + "").match(/^\d*\.{1}\d*$/),
-      ),
-      prazoDias: Yup.number().integer(),
-      categoria: Yup.string()
+      nome: Yup.string().required(),
+      descricao: Yup.string().required(),
+      valor: Yup.number().required(),
+      prazoDias: Yup.number().integer().required(),
+      categoria: Yup.string().required()
     })
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).send({ error: "Campos inválidos", status: false });
+      return res.status(400).send({ error: "Campos inválidos ou vazios!", status: false });
     }
 
     try {
