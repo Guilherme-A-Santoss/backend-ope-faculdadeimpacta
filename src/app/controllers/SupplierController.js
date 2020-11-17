@@ -1,4 +1,5 @@
 const SupplierService = require('../services/supplier.service')
+const Yup = require('yup')
 class SupplierController {
   async listAll(req, res) {
     try {
@@ -19,6 +20,22 @@ class SupplierController {
   }
 
   async create(req, res) {
+    const schema = Yup.object().shape({
+      razaoSocial: Yup.string().max(30).required(),
+      cnpj: Yup.string().length(14).required(),
+      nomeFantasia: Yup.string().max(30).required(),
+      endereco: Yup.string().max(30).required(),
+      cidade: Yup.string().max(60).required(),
+      uf: Yup.string().length(2).required(),
+      telefone: Yup.string().length(11).required(),
+      email: Yup.string().email().required(),
+      site: Yup.string()
+    })
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).send({ error: 'Campos inválidos', status: false });
+    }
+
     try {
       const payload = {...req.body}
 
@@ -32,6 +49,22 @@ class SupplierController {
   }
 
   async update(req, res) {
+    const schema = Yup.object().shape({
+      razaoSocial: Yup.string().max(30).required(),
+      cnpj: Yup.string().length(14).required(),
+      nomeFantasia: Yup.string().max(30).required(),
+      endereco: Yup.string().max(30).required(),
+      cidade: Yup.string().max(60).required(),
+      uf: Yup.string().length(2).required(),
+      telefone: Yup.string().length(11).required(),
+      email: Yup.string().email().required(),
+      site: Yup.string()
+    })
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).send({ error: 'Campos inválidos', status: false });
+    }
+
     try {
       const { id } = req.params;
       const payload = {...req.body}
