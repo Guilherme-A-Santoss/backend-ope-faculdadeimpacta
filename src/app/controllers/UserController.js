@@ -98,13 +98,13 @@ class UserController {
     }
 
     try {
-      const userId = req.params
+      const { id } = req.params
 
       const payload = {
         ...req.body,
       };
 
-      const updatedUser = await UserService.updateUserById(userId, payload);
+      const updatedUser = await UserService.updateUserById(id, payload);
 
       return res.status(201).json({ data: updatedUser, status: true });
     } catch (error) {

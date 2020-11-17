@@ -59,7 +59,7 @@ class Service {
   }
 
   async updateUserById(id, payload) {
-    const { email, senhaNova } = payload
+    const { senhaNova, tipoUsuario, email } = payload
 
     const user = await User.findByPk(id);
 
@@ -71,7 +71,7 @@ class Service {
       }
     }
 
-    const { nomeUsuario } = await user.update({ ...payload, email, senha: senhaNova })
+    const { nomeUsuario } = await user.update({ ...payload, senha: senhaNova })
 
     return {id, nomeUsuario, email, tipoUsuario}
   }
