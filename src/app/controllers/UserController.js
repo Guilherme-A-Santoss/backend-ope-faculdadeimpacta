@@ -82,6 +82,36 @@ class UserController {
     }
   }
 
+  async updateUserById(req, res) {
+    const schema = Yup.object().shape({
+      nomeUsuario: Yup.string(),
+      tipoUsuario: Yup.string().oneOf(['admin', 'employee']),
+      email: Yup.string().email(),
+      senhaNova: Yup.string().min(6),
+    })
+
+    if(!(await schema.isValid(req.body))) {
+
+      return res.status(400).json({
+        error: 'Campos faltando!', status: false
+      })
+    }
+
+    try {
+      const userId = req.params
+
+      const payload = {
+        ...req.body,
+      };
+
+      const updatedUser = await UserService.updateUserById(userId, payload);
+
+      return res.status(201).json({ data: updatedUser, status: true });
+    } catch (error) {
+      return res.status(400).send({ error: error.stack || error, status: false });
+    }
+  }
+
   async delete(req, res) {
     try {
       const { id } = req.params;
