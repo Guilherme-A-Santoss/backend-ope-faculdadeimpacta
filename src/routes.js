@@ -18,6 +18,7 @@ routes.post('/login', SessionController.login);
 routes.use(authMiddleware)
 
 routes.put('/user', UserController.update);
+routes.get('/user/:id', UserController.getUser);
 
 // Produtos
 routes.get('/products', ProductController.listAll);
@@ -54,7 +55,6 @@ routes.delete('/supplier/:id', SupplierController.delete);
 // Usuarios
 routes.post('/users', UserController.create);
 routes.get('/users', UserController.listAll);
-routes.get('/user/:id', UserController.getUser);
 routes.put('/user/:id', UserController.updateUserById);
 routes.delete('/user/:id', UserController.delete);
 
