@@ -21,10 +21,10 @@ class SupplierController {
 
   async create(req, res) {
     const schema = Yup.object().shape({
-      razaoSocial: Yup.string().max(30).required(),
+      razaoSocial: Yup.string().max(60).required(),
       cnpj: Yup.string().length(14).required(),
-      nomeFantasia: Yup.string().max(30).required(),
-      endereco: Yup.string().max(30).required(),
+      nomeFantasia: Yup.string().max(60).required(),
+      endereco: Yup.string().max(60).required(),
       cidade: Yup.string().max(60).required(),
       uf: Yup.string().length(2).required(),
       telefone: Yup.string().length(11).required(),
@@ -50,10 +50,10 @@ class SupplierController {
 
   async update(req, res) {
     const schema = Yup.object().shape({
-      razaoSocial: Yup.string().max(30).required(),
+      razaoSocial: Yup.string().max(60).required(),
       cnpj: Yup.string().length(14).required(),
-      nomeFantasia: Yup.string().max(30).required(),
-      endereco: Yup.string().max(30).required(),
+      nomeFantasia: Yup.string().max(60).required(),
+      endereco: Yup.string().max(60).required(),
       cidade: Yup.string().max(60).required(),
       uf: Yup.string().length(2).required(),
       telefone: Yup.string().length(11).required(),
