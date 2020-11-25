@@ -25,7 +25,6 @@ class OrderServiceController {
 
     try {
       const payload = { ...req.body }
-
       const { userId } = req
 
       const serviceOrder = await OrderService.createOrder(payload, userId)
@@ -62,13 +61,25 @@ class OrderServiceController {
     }
   }
 
-  async deleteOrder(req, res) {
+  async cancel(req, res) {
     try {
       const { id } = req.params;
 
-      const orderCanceled = await OrderService.deleteOrder(id);
+      const orderCanceled = await OrderService.cancelOrder(id);
 
       return res.status(200).json({ message: orderCanceled, status: true });
+    } catch (error) {
+      return res.status(400).send({ error: error.stack || error, status: false});
+    }
+  }
+
+  async delete(req, res) {
+    try {
+      const { id } = req.params;
+
+      await OrderService.deleteOrder(id);
+
+      return res.status(200).json({ message: 'Ordem de serviço deletada com sucesso.', status: true });
     } catch (error) {
       return res.status(400).send({ error: error.stack || error, status: false});
     }

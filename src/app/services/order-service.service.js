@@ -25,12 +25,16 @@ class Service {
     return order
   }
 
-  async deleteOrder(id) {
+  async cancelOrder(id) {
     const order = await OrderService.findByPk(id)
 
     await order.update({ statusOs: 'cancelada'});
 
     return order
+  }
+
+  async deleteOrder(id) {
+    return OrderService.destroy({ where: { id } });
   }
 }
 

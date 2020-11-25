@@ -19,6 +19,7 @@ routes.post('/login', SessionController.login);
 // Todas as rotas abaixo deste middleware precisam estarem autenticadas
 routes.use(authMiddleware)
 
+//Usuário logado
 routes.put('/user', UserController.update);
 routes.get('/user/:id', UserController.getUser);
 
@@ -47,12 +48,12 @@ routes.delete('/service/:id', ServiceController.delete);
 routes.get('/suppliers', SupplierController.listAll);
 routes.get('/supplier/:id', SupplierController.getSupplier);
 
+// Ordem de Serviço
 routes.get('/orders', OrderServiceController.listOrders)
 routes.post('/orders', OrderServiceController.createServiceOrder)
+routes.post('/order/cancel/:id', OrderServiceController.cancel)
 routes.put('/order/:id', OrderServiceController.updateOrderService)
-routes.delete('/order/:id', OrderServiceController.deleteOrder)
 
-// Ordem de Serviço
 routes.use(permissionMiddleware)
 
 // Fornecedores
@@ -66,6 +67,7 @@ routes.get('/users', UserController.listAll);
 routes.put('/user/:id', UserController.updateUserById);
 routes.delete('/user/:id', UserController.delete);
 
+routes.delete('/order/:id', OrderServiceController.delete)
 
 
 
