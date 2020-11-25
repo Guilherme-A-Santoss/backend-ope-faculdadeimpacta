@@ -16,13 +16,14 @@ class SessionController {
         return res.status(401).json({error: 'Senha incorreta!', status: false})
       }
 
-      const { id, nomeUsuario } = user
+      const { id, nomeUsuario, tipoUsuario } = user
 
       return res.status(200).json({
         user: {
           id,
           email,
-          nomeUsuario
+          nomeUsuario,
+          tipoUsuario
         },
         token: jwt.sign({ id }, authConfig.secret, {
           expiresIn: authConfig.expiresIn
