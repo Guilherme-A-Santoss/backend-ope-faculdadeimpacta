@@ -6,9 +6,10 @@ class OrderService extends Model {
     super.init(
       {
         dataEntrega: Sequelize.STRING,
-        statusOs: Sequelize.STRING,
+        statusOs: Sequelize.ENUM('pendente', 'iniciada', 'concluida', 'cancelada'),
         descricao: Sequelize.STRING,
         valor: Sequelize.DECIMAL,
+        itemsServico: Sequelize.ARRAY(Sequelize.STRING),
         categoria: Sequelize.STRING,
         idCliente: Sequelize.INTEGER
       },
@@ -16,6 +17,8 @@ class OrderService extends Model {
         sequelize,
       }
     );
+
+    return this
   }
 
   static associate(models) {

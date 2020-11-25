@@ -14,6 +14,24 @@ class Service {
   async listOrders() {
     return OrderService.findAll()
   }
+
+  async updateOrder(id, payload) {
+    const order = await OrderService.findByPk( id )
+
+    if (!order) throw 'Ordem não encontrada!'
+
+    await order.update({ ...payload })
+
+    return order
+  }
+
+  async deleteOrder(id) {
+    const order = await OrderService.findByPk(id)
+
+    await order.update({ statusOs: 'cancelada'});
+
+    return order
+  }
 }
 
 module.exports = new Service()

@@ -16,6 +16,8 @@ class Service extends Model {
         sequelize,
       }
     );
+
+    return this
   }
 }
 

@@ -19,6 +19,8 @@ class Supplier extends Model {
         sequelize,
       }
     );
+
+    return this
   }
 }
 

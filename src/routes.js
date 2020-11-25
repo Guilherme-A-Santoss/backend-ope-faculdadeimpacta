@@ -6,6 +6,8 @@ const SupplierController = require('./app/controllers/SupplierController');
 const UserController = require('./app/controllers/UserController');
 const ServiceController = require('./app/controllers/ServiceController');
 const SessionController = require('./app/controllers/SessionController');
+const OrderServiceController = require('./app/controllers/OrderServiceController');
+
 const authMiddleware = require('./app/middlewares/authMiddleware')
 const permissionMiddleware = require('./app/middlewares/permissionMiddleware')
 
@@ -45,6 +47,12 @@ routes.delete('/service/:id', ServiceController.delete);
 routes.get('/suppliers', SupplierController.listAll);
 routes.get('/supplier/:id', SupplierController.getSupplier);
 
+routes.get('/orders', OrderServiceController.listOrders)
+routes.post('/orders', OrderServiceController.createServiceOrder)
+routes.put('/order/:id', OrderServiceController.updateOrderService)
+routes.delete('/order/:id', OrderServiceController.deleteOrder)
+
+// Ordem de Serviço
 routes.use(permissionMiddleware)
 
 // Fornecedores
@@ -57,6 +65,7 @@ routes.post('/users', UserController.create);
 routes.get('/users', UserController.listAll);
 routes.put('/user/:id', UserController.updateUserById);
 routes.delete('/user/:id', UserController.delete);
+
 
 
 

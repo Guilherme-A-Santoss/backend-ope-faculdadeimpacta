@@ -19,6 +19,8 @@ class Customer extends Model {
         sequelize,
       }
     );
+
+    return this
   }
 }
 module.exports = Customer;

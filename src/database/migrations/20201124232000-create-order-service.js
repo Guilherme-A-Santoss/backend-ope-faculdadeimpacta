@@ -18,11 +18,15 @@ module.exports = {
         onDelete: 'SET NULL'
       },
       status_os: {
-        type: Sequelize.ENUM('pendente', 'iniciada', 'concluida'),
+        type: Sequelize.ENUM('pendente', 'iniciada', 'concluida', 'cancelada'),
         allowNull: false,
       },
       valor: {
         type: Sequelize.DECIMAL(10, 2),
+        allowNull: false,
+      },
+      items_servico: {
+        type: Sequelize.ARRAY(Sequelize.JSON),
         allowNull: false,
       },
       descricao: {

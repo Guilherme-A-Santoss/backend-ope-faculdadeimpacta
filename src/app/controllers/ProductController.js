@@ -23,12 +23,6 @@ class ProductController {
 
     const schema = Yup.object().shape({
       nome: Yup.string().max(50).required(),
-      marca: Yup.string().max(20).required(),
-      // preco: Yup.number().test(
-      //   'is-decimal',
-      //   'invalid decimal',
-      //   value => (value + "").match(/^\d*\.{1}\d*$/),
-      // ).required(),
       preco: Yup.number().required(),
       codBarras: Yup.string().max(20).required()
     })
