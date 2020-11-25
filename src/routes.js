@@ -50,6 +50,7 @@ routes.get('/supplier/:id', SupplierController.getSupplier);
 
 // Ordem de Serviço
 routes.get('/orders', OrderServiceController.listOrders)
+routes.get('/order/:id', OrderServiceController.listOrderById)
 routes.post('/orders', OrderServiceController.createServiceOrder)
 routes.post('/order/cancel/:id', OrderServiceController.cancel)
 routes.put('/order/:id', OrderServiceController.updateOrderService)

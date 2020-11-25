@@ -8,10 +8,16 @@ class OrderServiceController {
     return res.status(200).json({ orders })
   }
 
+  async listOrderById(req, res) {
+    const { id } = req.params
+    const order = await OrderService.getOrderById(id)
+
+    return res.status(200).json({ order })
+  }
+
   async createServiceOrder(req, res) {
     const schema = Yup.object().shape({
       dataEntrega: Yup.date().required(),
-      statusOs: Yup.string().oneOf(['pendente', 'iniciada', 'concluida']).required(),
       descricao: Yup.string().max(200).required(),
       valor: Yup.number().required(),
       itemsServico: Yup.array().required(),

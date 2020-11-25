@@ -7,12 +7,17 @@ class Service {
     return OrderService.create({
       id_cliente: idCliente,
       id_funcionario: userId,
+      statusOs: 'pendente',
       ...payload
     });
   }
 
   async listOrders() {
     return OrderService.findAll()
+  }
+
+  async getOrderById(id) {
+    return OrderService.findByPk(id)
   }
 
   async updateOrder(id, payload) {
@@ -28,9 +33,7 @@ class Service {
   async cancelOrder(id) {
     const order = await OrderService.findByPk(id)
 
-    await order.update({ statusOs: 'cancelada'});
-
-    return order
+    return order.update({ statusOs: 'cancelada'});
   }
 
   async deleteOrder(id) {
