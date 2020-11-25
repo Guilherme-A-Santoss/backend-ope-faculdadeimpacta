@@ -5,9 +5,10 @@ const Product = require('../app/models/Product');
 const Customer = require('../app/models/Customer');
 const Supplier = require('../app/models/Supplier');
 const User = require('../app/models/User');
-const Servico = require('../app/models/Service');
+const Service = require('../app/models/Service');
+const OrderService = require('../app/models/OrderService')
 
-const models = [Product, Customer, Supplier, User, Servico];
+const models = [Product, Customer, Supplier, User, Service, OrderService];
 
 class Database {
   constructor() {
@@ -17,7 +18,8 @@ class Database {
   init() {
     this.connection = new Sequelize(databaseConfig);
 
-    models.map((model) => model.init(this.connection));
+    models.map((model) => model.init(this.connection))
+    .map(model => models.associate && model.associate(this.connection.models))
   }
 }
 
