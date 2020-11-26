@@ -13,21 +13,39 @@ class Service {
   }
 
   async listOrders(id) {
-    const today = `${moment().endOf('day').format('YYYY-MM-DDTHH:mm:ss')}.000Z`
+    const yesterday = `${moment().subtract(1, 'days').endOf('day').format('YYYY-MM-DDTHH:mm:ss')}.000Z`
+    // const today = `${moment().endOf('day').format('YYYY-MM-DDTHH:mm:ss')}.000Z`
+    const week_end = `${moment().add(9, 'days').endOf('day').format('YYYY-MM-DDTHH:mm:ss')}.000Z`
+
 
     const user = await User.findByPk(id)
 
     if (user.tipoUsuario === 'admin') {
-      return OrderService.findAll()
+      return OrderService.findAll({
+        order: [['dataEntrega', 'ASC']]})
+    }
+    if (user.tipoUsuario === 'employee') {
+      return OrderService.findAll({
+        order: [['dataEntrega', 'ASC']],
+        where:{
+        
+        [Op.or]: 
+        [
+          {statusOs: "pendente"},
+          {statusOs: "iniciada"}
+        ],
+        data_entrega: {
+          [Op.between]: [yesterday, week_end]
+        }
+        
+      
+        }
+      })
+  
+
     }
 
-    return OrderService.findAll({ where: {
-      idFuncionario: id,
-      statusOs: {
-        [Op.or]: ['pendente', 'iniciada', 'concluida']
-      }
-    } })
-
+    
   }
 
   async getOrderById(id) {
