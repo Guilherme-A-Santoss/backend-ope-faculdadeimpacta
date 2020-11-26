@@ -7,7 +7,6 @@ const UserController = require('./app/controllers/UserController');
 const ServiceController = require('./app/controllers/ServiceController');
 const SessionController = require('./app/controllers/SessionController');
 const OrderServiceController = require('./app/controllers/OrderServiceController');
-const OrderScheduleController = require('./app/controllers/OrdersScheduleController');
 
 const authMiddleware = require('./app/middlewares/authMiddleware')
 const permissionMiddleware = require('./app/middlewares/permissionMiddleware')
@@ -55,10 +54,6 @@ routes.get('/order/:id', OrderServiceController.listOrderById)
 routes.post('/orders', OrderServiceController.createServiceOrder)
 routes.post('/order/cancel/:id', OrderServiceController.cancel)
 routes.put('/order/:id', OrderServiceController.updateOrderService)
-
-// Fila de servicos
-
-routes.get('/orders/queue', OrderScheduleController.enqueueOrders)
 
 
 routes.use(permissionMiddleware)

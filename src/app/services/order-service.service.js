@@ -1,27 +1,41 @@
+const User = require('../models/User')
 const OrderService = require('../models/OrderService')
 
-class Service {
-  async createOrder(payload, userId) {
-    const { idCliente } = payload
+const { Op } = require('sequelize');
+const moment = require('moment')
 
+class Service {
+  async createOrder(payload) {
     return OrderService.create({
-      id_cliente: idCliente,
-      id_funcionario: userId,
       statusOs: 'pendente',
       ...payload
     });
   }
 
-  async listOrders() {
-    return OrderService.findAll()
+  async listOrders(id) {
+    const today = `${moment().endOf('day').format('YYYY-MM-DDTHH:mm:ss')}.000Z`
+
+    const user = await User.findByPk(id)
+
+    if (user.tipoUsuario === 'admin') {
+      return OrderService.findAll()
+    }
+
+    return OrderService.findAll({ where: {
+      idFuncionario: id,
+      statusOs: {
+        [Op.or]: ['pendente', 'iniciada', 'concluida']
+      }
+    } })
+
   }
 
   async getOrderById(id) {
     return OrderService.findByPk(id)
   }
 
-  async updateOrder(id, payload) {
-    const order = await OrderService.findByPk( id )
+  async updateOrder(payload, id) {
+    const order = await OrderService.findByPk(id)
 
     if (!order) throw 'Ordem não encontrada!'
 

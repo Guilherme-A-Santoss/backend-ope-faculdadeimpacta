@@ -11,7 +11,8 @@ class OrderService extends Model {
         valor: Sequelize.DECIMAL,
         itemsServico: Sequelize.ARRAY(Sequelize.STRING),
         categoria: Sequelize.STRING,
-        idCliente: Sequelize.INTEGER
+        idCliente: Sequelize.INTEGER,
+        idFuncionario: Sequelize.INTEGER
       },
       {
         sequelize,

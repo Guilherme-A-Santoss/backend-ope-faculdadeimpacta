@@ -3,7 +3,9 @@ const OrderService = require('../services/order-service.service')
 
 class OrderServiceController {
   async listOrders(req, res) {
-    const orders = await OrderService.listOrders()
+    const { userId } = req
+
+    const orders = await OrderService.listOrders(userId)
 
     return res.status(200).json({ orders })
   }
@@ -22,7 +24,8 @@ class OrderServiceController {
       valor: Yup.number().required(),
       itemsServico: Yup.array().required(),
       categoria: Yup.string().required(),
-      idCliente: Yup.number().integer().required()
+      idCliente: Yup.number().integer().required(),
+      idFuncionario: Yup.number().integer().required()
     })
 
     if (!(await schema.isValid(req.body))) {
@@ -31,9 +34,8 @@ class OrderServiceController {
 
     try {
       const payload = { ...req.body }
-      const { userId } = req
 
-      const serviceOrder = await OrderService.createOrder(payload, userId)
+      const serviceOrder = await OrderService.createOrder(payload)
 
       return res.status(201).json({order: serviceOrder, status: true})
     } catch (error) {
