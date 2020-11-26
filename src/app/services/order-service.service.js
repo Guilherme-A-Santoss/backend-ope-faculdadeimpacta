@@ -30,10 +30,10 @@ class Service {
     return order
   }
 
-  async cancelOrder(id) {
+  async cancelOrder(id, statusOs) {
     const order = await OrderService.findByPk(id)
 
-    return order.update({ statusOs: 'cancelada'});
+    return order.update({ statusOs });
   }
 
   async deleteOrder(id) {

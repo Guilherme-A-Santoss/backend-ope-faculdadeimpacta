@@ -70,8 +70,10 @@ class OrderServiceController {
   async cancel(req, res) {
     try {
       const { id } = req.params;
+c
+      const statusOs = 'cancelada'
 
-      const orderCanceled = await OrderService.cancelOrder(id);
+      const orderCanceled = await OrderService.cancelOrder(id, statusOs );
 
       return res.status(200).json({ message: orderCanceled, status: true });
     } catch (error) {
