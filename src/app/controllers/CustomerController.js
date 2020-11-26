@@ -23,7 +23,7 @@ class CustomerController {
       endereco: Yup.string().max(50).required(),
       cidade: Yup.string().max(30).required(),
       uf: Yup.string().length(2).required(),
-      telefone: Yup.string().min(8).required(),
+      telefone: Yup.string().min(8).max(11).required(),
       email: Yup.string().email().required(),
       sexo: Yup.string().oneOf(['M', 'F', 'NB']).required()
     })
@@ -56,7 +56,7 @@ class CustomerController {
       endereco: Yup.string().max(50).required(),
       cidade: Yup.string().max(30).required(),
       uf: Yup.string().length(2).required(),
-      telefone: Yup.string().min(8).required(),
+      telefone: Yup.string().min(8).max(11).required(),
       email: Yup.string().email().required(),
       sexo: Yup.string().oneOf(['M', 'F', 'NB']).required()
     })

@@ -27,7 +27,7 @@ class SupplierController {
       endereco: Yup.string().max(60).required(),
       cidade: Yup.string().max(60).required(),
       uf: Yup.string().length(2).required(),
-      telefone: Yup.string().length(11).required(),
+      telefone: Yup.string().min(8).max(11).required(),
       email: Yup.string().email().required(),
       site: Yup.string()
     })
@@ -56,7 +56,7 @@ class SupplierController {
       endereco: Yup.string().max(60).required(),
       cidade: Yup.string().max(60).required(),
       uf: Yup.string().length(2).required(),
-      telefone: Yup.string().length(11).required(),
+      telefone: Yup.string().min(8).max(11).required(),
       email: Yup.string().email().required(),
       site: Yup.string()
     })
