@@ -46,7 +46,7 @@ class OrderServiceController {
   async updateOrderService(req, res) {
     const schema = Yup.object().shape({
       dataEntrega: Yup.date(),
-      statusOs: Yup.string().oneOf(['pendente', 'iniciada', 'concluida']).required(),
+      statusOs: Yup.string().oneOf(['pendente', 'iniciada', 'concluída']).required(),
       descricao: Yup.string().max(200).required(),
       valor: Yup.number().required(),
       itemsServico: Yup.string(),
