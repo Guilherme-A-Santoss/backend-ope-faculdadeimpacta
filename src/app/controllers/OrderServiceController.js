@@ -49,7 +49,7 @@ class OrderServiceController {
       statusOs: Yup.string().oneOf(['pendente', 'iniciada', 'concluida']).required(),
       descricao: Yup.string().max(200).required(),
       valor: Yup.number().required(),
-      itemsServico: Yup.array(),
+      itemsServico: Yup.string(),
       categoria: Yup.string().required(),
     })
 
@@ -72,7 +72,7 @@ class OrderServiceController {
   async cancel(req, res) {
     try {
       const { id } = req.params;
-c
+
       const statusOs = 'cancelada'
 
       const orderCanceled = await OrderService.cancelOrder(id, statusOs );
