@@ -30,8 +30,8 @@ class Service {
       where:{
         [Op.or]:
         [
-          {statusOs: "Pendente"},
-          {statusOs: "Iniciada"}
+          {statusOs: "pendente"},
+          {statusOs: "iniciada"}
         ],
         data_entrega: {
           [Op.between]: [yesterday, week_end]
