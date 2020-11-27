@@ -6,7 +6,7 @@ class OrderService extends Model {
     super.init(
       {
         dataEntrega: Sequelize.STRING,
-        statusOs: Sequelize.ENUM('PENDENTE', 'INICIADA', 'CONCLUÍDA', 'CANCELADA'),
+        statusOs: Sequelize.ENUM('Pendente', 'Iniciada', 'Concluída', 'Cancelada'),
         descricao: Sequelize.STRING,
         valor: Sequelize.DECIMAL,
         itemsServico: Sequelize.STRING,

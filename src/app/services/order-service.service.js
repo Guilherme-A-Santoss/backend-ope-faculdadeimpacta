@@ -7,7 +7,7 @@ const moment = require('moment')
 class Service {
   async createOrder(payload) {
     return OrderService.create({
-      statusOs: 'pendente',
+      statusOs: 'Pendente',
       ...payload
     });
   }
@@ -24,22 +24,21 @@ class Service {
       return OrderService.findAll({
         order: [['dataEntrega', 'ASC']]})
     }
-    if (user.tipoUsuario === 'employee') {
-      return OrderService.findAll({
-        order: [['dataEntrega', 'ASC']],
-        where:{
 
+    return OrderService.findAll({
+      order: [['dataEntrega', 'ASC']],
+      where:{
         [Op.or]:
         [
-          {statusOs: "pendente"},
-          {statusOs: "iniciada"}
+          {statusOs: "Pendente"},
+          {statusOs: "Iniciada"}
         ],
         data_entrega: {
           [Op.between]: [yesterday, week_end]
-        }
-        }
-      })
-    }
+        },
+        id_funcionario: id
+      }
+    })
   }
 
   async getOrderById(id) {

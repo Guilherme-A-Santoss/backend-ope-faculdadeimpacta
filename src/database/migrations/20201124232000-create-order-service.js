@@ -18,7 +18,7 @@ module.exports = {
         onDelete: 'SET NULL'
       },
       status_os: {
-        type: Sequelize.ENUM('PENDENTE', 'INICIADA', 'CONCLUÍDA', 'CANCELADA'),
+        type: Sequelize.ENUM('Pendente', 'Iniciada', 'Concluída', 'Cancelada'),
         allowNull: false,
       },
       valor: {
