@@ -28,7 +28,7 @@ class Service {
   }
 
   async list() {
-    return Supplier.findAll({ order: [["id", "ASC"]] });
+    return Supplier.findAll({ order: [["nomeFantasia", "ASC"]] });
   }
 
   async getById(id) {

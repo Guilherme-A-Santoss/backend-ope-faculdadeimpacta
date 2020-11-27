@@ -14,7 +14,9 @@ class Service {
   }
 
   async listUsers() {
+
     return User.findAll({
+      order: [["nomeUsuario", "ASC"]],
       attributes: {
         exclude: [, 'updatedAt', 'createdAt', 'senhaHash'],
       },
