@@ -28,8 +28,8 @@ class Service {
       return OrderService.findAll({
         order: [['dataEntrega', 'ASC']],
         where:{
-        
-        [Op.or]: 
+
+        [Op.or]:
         [
           {statusOs: "pendente"},
           {statusOs: "iniciada"}
@@ -37,15 +37,13 @@ class Service {
         data_entrega: {
           [Op.between]: [yesterday, week_end]
         }
-        
-      
         }
       })
-  
+
 
     }
 
-    
+
   }
 
   async getOrderById(id) {

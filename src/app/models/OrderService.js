@@ -9,7 +9,7 @@ class OrderService extends Model {
         statusOs: Sequelize.ENUM('pendente', 'iniciada', 'concluida', 'cancelada'),
         descricao: Sequelize.STRING,
         valor: Sequelize.DECIMAL,
-        itemsServico: Sequelize.ARRAY(Sequelize.STRING),
+        itemsServico: Sequelize.STRING,
         categoria: Sequelize.STRING,
         idCliente: Sequelize.INTEGER,
         idFuncionario: Sequelize.INTEGER

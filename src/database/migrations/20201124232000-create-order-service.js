@@ -26,7 +26,7 @@ module.exports = {
         allowNull: false,
       },
       items_servico: {
-        type: Sequelize.ARRAY(Sequelize.JSON),
+        type: Sequelize.STRING,
         allowNull: false,
       },
       descricao: {
