@@ -7,7 +7,7 @@ const moment = require('moment')
 class Service {
   async createOrder(payload) {
     return OrderService.create({
-      statusOs: 'Pendente',
+      statusOs: 'pendente',
       ...payload
     });
   }
