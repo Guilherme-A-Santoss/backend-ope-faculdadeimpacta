@@ -22,7 +22,7 @@ class OrderServiceController {
       dataEntrega: Yup.date().required(),
       descricao: Yup.string().max(200).required(),
       valor: Yup.number().required(),
-      itemsServico: Yup.array().required(),
+      itemsServico: Yup.string().required(),
       categoria: Yup.string().required(),
       idCliente: Yup.number().integer().required(),
       idFuncionario: Yup.number().integer().required()
