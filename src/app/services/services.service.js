@@ -6,7 +6,8 @@ class Service {
   }
 
   async list() {
-    return ServiceModel.findAll();
+    return ServiceModel.findAll({order: [["id", "ASC"]]}
+    );
   }
 
   async getById(id) {

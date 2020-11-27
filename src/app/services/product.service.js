@@ -8,7 +8,7 @@ class Service {
   }
 
   async list() {
-    return Product.findAll();
+    return Product.findAll({ order: [["id", "ASC"]] });
   }
 
   async getById(id) {

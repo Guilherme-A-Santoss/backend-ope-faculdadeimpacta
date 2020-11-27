@@ -39,11 +39,7 @@ class Service {
         }
         }
       })
-
-
     }
-
-
   }
 
   async getOrderById(id) {
