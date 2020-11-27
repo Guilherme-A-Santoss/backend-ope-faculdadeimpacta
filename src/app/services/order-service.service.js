@@ -36,7 +36,7 @@ class Service {
         data_entrega: {
           [Op.between]: [yesterday, week_end]
         },
-        id_funcionario: id
+        idFuncionario: id
       }
     })
   }
