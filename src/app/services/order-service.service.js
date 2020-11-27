@@ -37,6 +37,7 @@ class Service {
           [Op.between]: [yesterday, week_end]
         },
         idFuncionario: id
+        // funcionou aqui
       }
     })
   }
